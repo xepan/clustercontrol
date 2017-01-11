@@ -1,0 +1,16 @@
+{
+    "name": "xepan/clustercontrol",
+    "type": "project",
+    "require": {
+        "xepan/atk4": "4.3",
+        "toin0u/digitalocean-v2": "^2.1",
+        "kriswallsmith/buzz": "^0.15.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Xavoc Technocrats Pvt. Ltd.",
+            "email": "info@xavoc.com"
+        }
+    ]
+}
