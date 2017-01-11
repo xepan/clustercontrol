@@ -27,9 +27,9 @@ class Frontend extends ApiFrontend {
         // });
         // $auth->check();
         
+        $m->addItem('Dashboard','index');
         $m->addItem('Clusters','clusters');
-        $m->addItem('About','about');
-        $m->addItem('Event','event');
+        $m->addItem('Scripts MarketPlace','scriptsmarketplace');
         $m->addItem('Help','help');
 
         // if($auth->isLoggedIn()){

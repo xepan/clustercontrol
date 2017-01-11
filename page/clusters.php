@@ -8,5 +8,6 @@ class page_clusters extends Page {
 		$crud->setModel('Cluster');
 
 		$crud->grid->addColumn('link','hosts')->setTemplate('<a href="?page=hosts&cluster_id={$id}">Hosts</a>');
+		$crud->grid->addColumn('Button','configuration_files');
 	}
 }
