@@ -91,13 +91,27 @@ class Model_Host_DO extends Model_Host {
 				if($form['ssh_keys_'.$k->id]) $ssh_keys[] = $k->id;
 			}
 			$created = $droplet->create($form['host_name'], $form['region'], $form['size'], $form['image'],$form['backup'],$form['ipv6'],$form['enable_privateNetworking'],$ssh_keys);
+			$response=$created;
+			$i=0;
+			while($response->status != 'active'){
+				$response  = $droplet->getById($created->id);
+				sleep(3);
+				$i++;
+				if($i>10) break; // max tries
+			}
+
 			$this['name'] = $form['name'];
-			$this['raw_info'] = json_encode($created);
+			$this['raw_info'] = json_encode($response);
 			$this['cluster_id'] = $cluster_id;
+			$this['ip'] = $this->getIP();
 			$this->save();
 			$page->js(null,$page->js()->reload())->univ()->closeDialog()->execute();
 		}
+	}
 
 
+	function getIP(){
+		$info =  json_decode($this['raw_info']);
+		return $info->networks[0]->ipAddress;
 	}
 }

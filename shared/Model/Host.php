@@ -10,6 +10,9 @@ class Model_Host extends Model_MyTable {
 		$this->hasOne('Cluster');
 		$this->addField('name');
 		$this->addField('service'); // service provider like DO or AWS etc
+
+		$this->addField('ip');
+		
 		$this->addField('raw_info')->type('text');
 
 		$this->add('dynamic_model/Controller_AutoCreator');
