@@ -29,7 +29,7 @@ class Frontend extends ApiFrontend {
         
         $m->addItem('Dashboard','index');
         $m->addItem('Clusters','clusters');
-        $m->addItem('Scripts MarketPlace','scriptsmarketplace');
+        $m->addItem('Applications','applications');
         $m->addItem('Help','help');
 
         // if($auth->isLoggedIn()){

@@ -8,7 +8,7 @@ class page_clusters extends Page {
 		$crud->setModel('Cluster');
 
 		$crud->grid->addColumn('Expander','hosts');
-		$crud->grid->addColumn('Button','application_manager');
+		$crud->grid->addColumn('Expander','application_setup');
 	}
 
 	function page_hosts(){
@@ -39,5 +39,37 @@ class page_clusters extends Page {
 
 		$host->create_page($this, $cluster_id);
 
+	}
+
+	function page_application_setup(){
+		$cluster_id = $this->app->stickyGET('cluster_id');
+		$application_setup_model = $this->add('Model_ApplicationSetup')->addCondition('cluster_id',$cluster_id);
+		$crud = $this->add('CRUD');
+		$crud->setModel($application_setup_model,['application_id','install_on_nodes'],['order','application','install_on_nodes']);
+
+		if(!$crud->isEditing()){
+			$crud->grid->addColumn('template','install_order')
+				->setTemplate('<div class="do-up" data-id="{$id}">up</div><div class="do-down" data-id="{$id}">Down</div>');
+
+			$crud->grid->on('click','.do-up',function($js,$data)use($crud){
+				$m=$this->add('Model_ApplicationSetup')
+					->load($data['id']);
+				$m['order'] = $m['order'] + 1 ;
+				$m->save();
+				unset($this->app->sticky_get_arguments[$crud->grid->name.'_virtualpage']);
+				return $crud->grid->js()->reload();
+			});
+
+			$crud->grid->on('click','.do-down',function($js,$data)use($crud){
+				$m=$this->add('Model_ApplicationSetup')
+					->load($data['id']);
+				$m['order'] = $m['order'] - 1;
+				$m->save();
+				unset($this->app->sticky_get_arguments[$crud->grid->name.'_virtualpage_2']);
+				return $crud->grid->js()->reload();
+			});
+			
+		}
+		
 	}
 }

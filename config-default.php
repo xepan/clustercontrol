@@ -10,3 +10,5 @@ $config['url_postfix']='';
 
 
 $config['dsn']='mysql://root:@localhost/clustercontrol';
+
+$config['cluster_events']=['host_created','host_rebooted','application_failed','node_failed','node_spawned','dependency_check','demand'];
